@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mongo
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "4200:4200"
+    depends_on:
+      - backend
+
+  mongo:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+

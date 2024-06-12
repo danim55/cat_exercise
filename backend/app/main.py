@@ -4,7 +4,7 @@ from contextlib import asynccontextmanager
 import uvicorn
 from fastapi import FastAPI
 
-from app.database import connect_to_db, close_db_connection
+from app.database import db_manager
 from app.routes import cat
 
 app = FastAPI()
@@ -14,10 +14,10 @@ app.include_router(cat.router)
 @asynccontextmanager
 async def lifespan():
     # Connect to the database before the app starts
-    connect_to_db()
+    db_manager.connect()
     yield
     # Close the database after the app finishes
-    close_db_connection()
+    db_manager.close()
 
 
 # Start server function

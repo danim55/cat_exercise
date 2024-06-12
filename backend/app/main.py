@@ -8,6 +8,7 @@ from app.database import connect_to_db, close_db_connection
 from app.routes import cat
 
 app = FastAPI()
+app.include_router(cat.router)
 
 
 @asynccontextmanager
@@ -17,9 +18,6 @@ async def lifespan():
     yield
     # Close the database after the app finishes
     close_db_connection()
-
-
-app.include_router(cat.router)
 
 
 # Start server function

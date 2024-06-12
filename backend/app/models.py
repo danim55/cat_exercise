@@ -1,8 +1,10 @@
 from datetime import datetime, date
 
+from pymongo.database import Database
+
 
 class Cat:
-    def __init__(self, db):
+    def __init__(self, db: Database):
         self.collection = db["cats"]
 
     def _convert_dates(self, data):

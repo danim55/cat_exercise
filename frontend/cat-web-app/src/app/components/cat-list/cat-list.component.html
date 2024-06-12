@@ -1,0 +1,11 @@
+<div>
+    <h1>Cat List</h1>
+    <a routerLink="/cats/upload">Upload New Cat</a>
+    <ul>
+        <li *ngFor="let cat of cats">
+            <img [src]="cat.photo" alt="cat photo" width="50">
+            <a [routerLink]="['/cats', cat.name]">{{ cat.name }}</a>
+            <button (click)="deleteCat(cat.name)">Delete</button>
+        </li>
+    </ul>
+</div>

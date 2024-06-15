@@ -8,7 +8,7 @@ import { Cat } from '../model/cat.model';
 })
 export class CatService {
     // TODO replace with /api/cat and add proxy.conf.json
-    private CAT_API_URI = 'http://localhost:8000';
+    private CAT_API_URI = '/api';
 
     constructor(private http: HttpClient) { }
 

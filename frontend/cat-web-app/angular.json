@@ -60,7 +60,8 @@
               "buildTarget": "cat-web-app:build:production"
             },
             "development": {
-              "buildTarget": "cat-web-app:build:development"
+              "buildTarget": "cat-web-app:build:development",
+              "proxyConfig": "src/proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"

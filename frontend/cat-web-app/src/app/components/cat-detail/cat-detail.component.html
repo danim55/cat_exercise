@@ -1,0 +1,13 @@
+<div *ngIf="cat">
+    <h1>{{ cat.name }}</h1>
+    <img [src]="cat.photo" alt="cat photo" width="200">
+    <p>Age: {{ cat.age }}</p>
+    <p>Breed: {{ cat.breed }}</p>
+    <h2>Vaccinations:</h2>
+    <ul>
+        <li *ngFor="let vaccination of cat.vaccinations">
+            {{ vaccination.type }} - {{ vaccination.date }}
+        </li>
+    </ul>
+    <a [routerLink]="['/cats/edit', cat.name]">Edit</a>
+</div>

@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Cat } from '../../model/cat.model';
 import { CatService } from '../../services/cat-api.service';
@@ -7,7 +8,7 @@ import { CatService } from '../../services/cat-api.service';
 @Component({
   selector: 'app-cat-edit',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, FormsModule],
   templateUrl: './cat-edit.component.html',
   styleUrls: ['./cat-edit.component.css']
 })
@@ -25,7 +26,15 @@ export class CatEditComponent implements OnInit {
     this.catService.getCat(name).subscribe(cat => this.cat = cat);
   }
 
+  addVaccination(): void {
+    this.cat.vaccinations.push({ type: '', date: '' });
+  }
+
   saveCat(): void {
     this.catService.updateCat(this.cat.name, this.cat).subscribe(() => this.router.navigate(['/cats']));
+  }
+
+  onSubmit(): void {
+    this.saveCat();
   }
 }

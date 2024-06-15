@@ -1,0 +1,102 @@
+.cat-edit-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.vaccination-group {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.vaccination-group input {
+    flex: 1;
+}
+
+button[type="button"] {
+    align-self: flex-start;
+    padding: 10px 15px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button[type="button"]:hover {
+    background-color: #218838;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.save-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.save-button:disabled {
+    background-color: #b0d4ff;
+    cursor: not-allowed;
+}
+
+.save-button:hover:enabled {
+    background-color: #0056b3;
+}
+
+.cancel-button {
+    padding: 10px 20px;
+    background-color: #dc3545;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.cancel-button:hover {
+    background-color: #c82333;
+}

@@ -7,7 +7,6 @@ import { Cat } from '../model/cat.model';
     providedIn: 'root'
 })
 export class CatService {
-    // TODO replace with /api/cat and add proxy.conf.json
     private CAT_API_URI = '/api';
 
     constructor(private http: HttpClient) { }

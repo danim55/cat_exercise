@@ -1,1 +1,79 @@
-<p>cat-upload works!</p>
+<h1>Upload New Cat</h1>
+<div class="cat-upload-container">
+    <form class="upload-form" [formGroup]="catForm" (ngSubmit)="uploadCat()">
+        <mat-form-field appearance="fill" class="form-group">
+            <mat-label>Name</mat-label>
+            <input matInput formControlName="name" required>
+            @if(!catForm.get('name')?.errors?.['required']){
+            <mat-error>
+                Name is required
+            </mat-error>
+            }
+        </mat-form-field>
+
+        <div appearance="fill" class="form-group">
+            <input type="file" class="file-input" (change)="handleFileInput($event)" required #fileUpload>
+            <button (click)="fileUpload.click()" type="button" class="file-button">Choose File</button>
+            <div class="card">
+                @if (file) {
+                <ul class="file-list">
+                    <li class="file-item">
+                        <a href>{{ file.name }}</a>
+                        <button (click)="removeFile()" class="remove-button">
+                            <i class="material-icons">close</i>
+                        </button>
+                    </li>
+                </ul>
+                }
+                @else {
+                <span>No files uploaded yet.</span>
+                }
+            </div>
+        </div>
+
+        <mat-form-field appearance="fill" class="form-group">
+            <mat-label>Age</mat-label>
+            <input matInput type="number" formControlName="age" required>
+            @if(!catForm.get('age')?.errors?.['required']){
+            <mat-error>
+                Age is required
+            </mat-error>
+            }
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="form-group">
+            <mat-label>Breed</mat-label>
+            <input matInput formControlName="breed" required>
+            @if(!catForm.get('breed')?.errors?.['required']){
+            <mat-error>
+                Breed is required
+            </mat-error>
+            }
+        </mat-form-field>
+
+        <div formArrayName="vaccinations" class="form-group">
+            <mat-label>Vaccinations:</mat-label>
+            @for(vaccination of vaccinations.controls; track vaccination; let i = $index){
+                <div [formGroupName]="i" class="vaccination-group">
+                    <mat-form-field appearance="fill" class="form-group">
+                        <mat-label>Type</mat-label>
+                        <input matInput formControlName="type" required>
+                    </mat-form-field>
+                    <mat-form-field appearance="fill" class="form-group">
+                        <mat-label>Date</mat-label>
+                        <input matInput type="date" formControlName="date" required>
+                    </mat-form-field>
+                    <button mat-icon-button type="button" (click)="removeVaccination(i)">
+                        <mat-icon>remove_circle</mat-icon>
+                    </button>
+                </div>
+            }
+            <button mat-button type="button" (click)="addVaccination()">Add Vaccination</button>
+        </div>
+
+        <div class="form-actions">
+            <button mat-raised-button color="primary" type="submit" [disabled]="catForm.invalid">Upload</button>
+            <a mat-button [routerLink]="['/cats']" class="cancel-button">Cancel</a>
+        </div>
+    </form>
+</div>

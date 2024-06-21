@@ -1,0 +1,52 @@
+.cat-upload-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.vaccination-group {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cancel-button {
+    text-decoration: none;
+}
+
+.file-input {
+    display: none;
+}
+
+.file-button {
+    max-width: 200px;
+    padding: 10px;
+}
+
+.card {
+    margin-top: 10px;
+    max-width: 500px;
+    padding: 10px;
+}

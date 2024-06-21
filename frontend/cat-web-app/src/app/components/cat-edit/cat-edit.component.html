@@ -1,1 +1,34 @@
-<p>cat-edit works!</p>
+<div *ngIf="cat" class="cat-edit-container">
+    <h1>Edit Cat: {{ cat.name }}</h1>
+    <form (ngSubmit)="onSubmit()" #catForm="ngForm">
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" id="name" [(ngModel)]="cat.name" name="name" required>
+        </div>
+        <div class="form-group">
+            <label for="photo">Photo URL:</label>
+            <input type="text" id="photo" [(ngModel)]="cat.photo" name="photo" required>
+        </div>
+        <div class="form-group">
+            <label for="age">Age:</label>
+            <input type="number" id="age" [(ngModel)]="cat.age" name="age" required>
+        </div>
+        <div class="form-group">
+            <label for="breed">Breed:</label>
+            <input type="text" id="breed" [(ngModel)]="cat.breed" name="breed" required>
+        </div>
+        <div class="form-group">
+            <label>Vaccinations:</label>
+            <div *ngFor="let vaccination of cat.vaccinations; let i = index" class="vaccination-group">
+                <input type="text" [(ngModel)]="vaccination.type" name="vaccinationType{{i}}" placeholder="Type"
+                    required>
+                <input type="date" [(ngModel)]="vaccination.date" name="vaccinationDate{{i}}" required>
+            </div>
+            <button type="button" (click)="addVaccination()">Add Vaccination</button>
+        </div>
+        <div class="form-actions">
+            <button type="submit" class="save-button" [disabled]="!catForm.form.valid">Save</button>
+            <a [routerLink]="['/cats', cat.name]" class="cancel-button">Cancel</a>
+        </div>
+    </form>
+</div>

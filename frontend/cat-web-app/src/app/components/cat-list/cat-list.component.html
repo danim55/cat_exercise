@@ -1,17 +1,18 @@
-<div class="cat-list-container">
-    <h1>Cat List</h1>
-    <div class="actions">
-        <a routerLink="/cats/upload" class="upload-button">Upload New Cat</a>
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Cat List</h1>
+    <div class="d-flex justify-content-end mb-3">
+        <a routerLink="/cats/upload" class="btn btn-primary">Upload New Cat</a>
     </div>
-    <ul class="cat-list">
-        <li *ngFor="let cat of cats" class="cat-item">
-            <div class="cat-thumbnail">
-                <img [src]="cat.photo" alt="cat photo">
-            </div>
-            <div class="cat-details">
-                <a [routerLink]="['/cats', cat.name]" class="cat-name">{{ cat.name }}</a>
-                <button (click)="deleteCat(cat.name)" class="delete-button">Delete</button>
-            </div>
-        </li>
+    <ul class="list-group">
+        @for(cat of cats; track cat){
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center">
+                    <img [src]="cat.photo" alt="cat photo" class="rounded-circle me-3"
+                        style="width: 50px; height: 50px; object-fit: cover;">
+                    <a [routerLink]="['/cats', cat.name]" class="text-decoration-none">{{ cat.name }}</a>
+                </div>
+                <button (click)="deleteCat(cat.name)" class="btn btn-danger">Delete</button>
+            </li>
+        }
     </ul>
 </div>

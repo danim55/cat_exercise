@@ -79,9 +79,9 @@ export class CatUploadComponent {
   }
 
   /**
- * Method to remove the file at the specified index
- * @param index Index of the file to be removed from the list of Files to be uploaded
- */
+   * Method to remove the file at the specified index
+   * @param index Index of the file to be removed from the list of Files to be uploaded
+   */
   public removeFile(): void {
     this.file = null;
     // Reset file input value

@@ -12,7 +12,7 @@ import { CatService } from '../../services/cat-api.service';
   styleUrls: ['./cat-detail.component.css']
 })
 export class CatDetailComponent implements OnInit {
-  cat: Cat | undefined;
+  public cat: Cat | undefined;
 
   constructor(
     private route: ActivatedRoute,
@@ -21,6 +21,10 @@ export class CatDetailComponent implements OnInit {
 
   ngOnInit(): void {
     const name = this.route.snapshot.paramMap.get('name')!;
-    this.catService.getCat(name).subscribe(cat => this.cat = cat);
+    this.catService.getCat(name)
+      .subscribe(cat => {
+        this.cat = cat;
+      }
+      );
   }
 }

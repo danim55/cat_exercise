@@ -14,3 +14,4 @@ class CatSchema(BaseModel):
     age: int
     breed: str
     vaccinations: List[Vaccination]
+    photo: str

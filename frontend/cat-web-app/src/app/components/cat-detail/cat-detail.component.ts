@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { Cat } from '../../model/cat.model';
 import { CatService } from '../../services/cat-api.service';
@@ -8,7 +9,7 @@ import { FavoriteService } from '../../services/favorite.service';
 @Component({
   selector: 'app-cat-detail',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, MatIconModule],
   templateUrl: './cat-detail.component.html',
   styleUrls: ['./cat-detail.component.css']
 })

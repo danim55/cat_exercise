@@ -43,3 +43,9 @@
     background-color: #c82333;
     border-color: #c82333;
 }
+
+.star-icon {
+    font-size: 1.5em;
+    color: yellow;
+    margin-left: 4px;
+}

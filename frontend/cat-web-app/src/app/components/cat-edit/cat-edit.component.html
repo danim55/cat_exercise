@@ -1,34 +1,75 @@
-<div *ngIf="cat" class="cat-edit-container">
-    <h1>Edit Cat: {{ cat.name }}</h1>
-    <form (ngSubmit)="onSubmit()" #catForm="ngForm">
-        <div class="form-group">
-            <label for="name">Name:</label>
-            <input type="text" id="name" [(ngModel)]="cat.name" name="name" required>
-        </div>
-        <div class="form-group">
-            <label for="photo">Photo URL:</label>
-            <input type="text" id="photo" [(ngModel)]="cat.photo" name="photo" required>
-        </div>
-        <div class="form-group">
-            <label for="age">Age:</label>
-            <input type="number" id="age" [(ngModel)]="cat.age" name="age" required>
-        </div>
-        <div class="form-group">
-            <label for="breed">Breed:</label>
-            <input type="text" id="breed" [(ngModel)]="cat.breed" name="breed" required>
-        </div>
-        <div class="form-group">
-            <label>Vaccinations:</label>
-            <div *ngFor="let vaccination of cat.vaccinations; let i = index" class="vaccination-group">
-                <input type="text" [(ngModel)]="vaccination.type" name="vaccinationType{{i}}" placeholder="Type"
-                    required>
-                <input type="date" [(ngModel)]="vaccination.date" name="vaccinationDate{{i}}" required>
+@if(catForm){
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Edit Cat: {{ catForm.value.name }}</h1>
+        <form [formGroup]="catForm" (ngSubmit)="saveCat()">
+            <mat-form-field appearance="fill" class="w-100 mb-3">
+                <mat-label>Name</mat-label>
+                <input matInput formControlName="name" required>
+            </mat-form-field>
+
+            <div appearance="fill" class="form-group">
+                <input type="file" class="file-input" (change)="handleFileInput($event)" required #fileUpload>
+                <p>Current photo</p>
+                <div class="d-flex align-items-center">
+                    <img [src]="photoUrl ? photoUrl : catForm.get('photo')?.value" alt="cat photo"
+                        class="rounded-circle me-3" style="width: 50px; height: 50px; object-fit: cover;">
+                </div>
+                <button (click)="fileUpload.click()" type="button" class="file-button">Choose File</button>
+                <div class="card">
+                    @if (file) {
+                    <ul class="file-list">
+                        <li class="file-item">
+                            <a href>{{ file.name }}</a>
+                            <button (click)="removeFile()" class="remove-button">
+                                <i class="material-icons">close</i>
+                            </button>
+                        </li>
+                    </ul>
+                    }
+                    @else {
+                    <span>No files uploaded yet.</span>
+                    }
+                </div>
             </div>
-            <button type="button" (click)="addVaccination()">Add Vaccination</button>
-        </div>
-        <div class="form-actions">
-            <button type="submit" class="save-button" [disabled]="!catForm.form.valid">Save</button>
-            <a [routerLink]="['/cats', cat.name]" class="cancel-button">Cancel</a>
-        </div>
-    </form>
-</div>
+
+            <mat-form-field appearance="fill" class="w-100 mb-3">
+                <mat-label>Age</mat-label>
+                <input matInput type="number" formControlName="age" required>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" class="w-100 mb-3">
+                <mat-label>Breed</mat-label>
+                <input matInput formControlName="breed" required>
+            </mat-form-field>
+
+            <div formArrayName="vaccinations">
+                @for(vaccination of vaccinations.controls; track vaccination; let i = $index){
+                    <div [formGroupName]="i" class="d-flex mb-3">
+                        <mat-form-field appearance="fill" class="me-2 w-50">
+                            <mat-label>Type</mat-label>
+                            <input matInput formControlName="type" required>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="fill" class="me-2 w-50">
+                            <mat-label>Date</mat-label>
+                            <input matInput [matDatepicker]="picker" formControlName="date">
+                            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+
+                        <button mat-icon-button type="button" class="remove-button" (click)="removeVaccination(i)">
+                            <mat-icon class="remove-icon">remove_circle</mat-icon>
+                        </button>
+                    </div>
+                }
+            </div>
+
+            <button mat-stroked-button color="primary" type="button" (click)="addVaccination()">Add Vaccination</button>
+
+            <div class="mt-4" class="action-buttons">
+                <button mat-raised-button color="primary" type="submit" [disabled]="!catForm.valid">Save</button>
+                <a mat-stroked-button color="warn" [routerLink]="['/cats', catForm.value.name]">Cancel</a>
+            </div>
+        </form>
+    </div>
+}

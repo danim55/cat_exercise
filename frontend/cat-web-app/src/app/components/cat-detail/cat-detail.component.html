@@ -1,21 +1,43 @@
-<div *ngIf="cat" class="cat-detail-container">
-    <h1>{{ cat.name }}</h1>
-    <div class="cat-photo">
-        <img [src]="cat.photo" alt="cat photo">
+@if (cat){
+    <div class="container mt-5 cat-detail-container">
+        <div class="text-center mb-4">
+            <div class="cat-photo mt-3">
+                <img [src]="cat.photo" alt="cat photo" class="img-fluid rounded">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="cat-info">
+                    <p><strong>Name:</strong> {{ cat.name }}</p>
+                    <p><strong>Age:</strong> {{ cat.age }} years</p>
+                    <p><strong>Breed:</strong> {{ cat.breed }}</p>
+                    <p><strong>Vaccinations:</strong></p>
+                    @if (cat.vaccinations.length > 0) {
+                        <ul class="list-group">
+                            @for(vaccination of cat.vaccinations; track vaccination){
+                                <li class="list-group-item">
+                                    {{ vaccination.type }} - {{ vaccination.date | date: 'longDate' }}
+                                </li>
+                            }
+                        </ul>
+                    } @else {
+                        <ul class="list-group">
+                            <li class="list-group-item">No vaccinations</li>
+                        </ul>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-4">
+            <button class="btn" [ngClass]="{ 'btn-primary': isFavorite(cat.name), 'btn-outline-primary': !isFavorite(cat.name) }"
+                    (click)="toggleFavorite(cat.name)">
+                <span *ngIf="isFavorite(cat.name)">Remove from Favorites</span>
+                <span *ngIf="!isFavorite(cat.name)">Add to Favorites</span>
+            </button>
+            <span class="ml-2">{{ favoriteCount }}</span>
+        </div>
+        <div class="text-center mt-4">
+            <a [routerLink]="['/cats/edit', cat.name]" class="btn btn-primary">Edit</a>
+        </div>
     </div>
-    <div class="cat-info">
-        <p><strong>Age:</strong> {{ cat.age }} years</p>
-        <p><strong>Breed:</strong> {{ cat.breed }}</p>
-    </div>
-    <div class="cat-vaccinations">
-        <h2>Vaccinations:</h2>
-        <ul>
-            <li *ngFor="let vaccination of cat.vaccinations">
-                {{ vaccination.type }} - {{ vaccination.date | date:'longDate' }}
-            </li>
-        </ul>
-    </div>
-    <div class="actions">
-        <a [routerLink]="['/cats/edit', cat.name]" class="edit-button">Edit</a>
-    </div>
-</div>
+}

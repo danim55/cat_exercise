@@ -1,102 +1,83 @@
-.cat-edit-container {
+.container {
     max-width: 600px;
     margin: 0 auto;
     padding: 20px;
-    font-family: Arial, sans-serif;
-    background-color: #f9f9f9;
+    background-color: #fff;
     border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 h1 {
     text-align: center;
-    color: #333;
+    margin-bottom: 20px;
 }
 
-form {
-    display: flex;
-    flex-direction: column;
+.mat-form-field {
+    width: 100%;
 }
 
 .form-group {
     margin-bottom: 15px;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-    color: #333;
-}
-
-.form-group input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
-
-.vaccination-group {
     display: flex;
-    gap: 10px;
-    margin-bottom: 10px;
+    flex-direction: column;
 }
 
-.vaccination-group input {
-    flex: 1;
+.d-flex {
+    display: flex;
+    align-items: center;
 }
 
-button[type="button"] {
-    align-self: flex-start;
-    padding: 10px 15px;
-    background-color: #28a745;
-    color: #fff;
+.mb-3 {
+    margin-bottom: 1rem;
+}
+
+.me-2 {
+    margin-right: .5rem;
+}
+
+.mt-4 {
+    margin-top: 1.5rem;
+}
+
+button {
+    padding: 10px 20px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.3s;
 }
 
-button[type="button"]:hover {
-    background-color: #218838;
+button.mat-raised-button {
+    margin-right: 10px;
 }
 
-.form-actions {
+.file-input {
+    display: none;
+}
+
+.file-button {
+    max-width: 200px;
+    padding: 10px;
+}
+
+.card {
+    margin-top: 10px;
+    max-width: 500px;
+    padding: 10px;
+}
+
+.action-buttons {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    margin-top: 20px;
 }
 
-.save-button {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+.remove-button {
+    padding: 1px;
+    justify-content: flex-end;
+    margin-left: 10px;
+    margin-top: 5px;
 }
 
-.save-button:disabled {
-    background-color: #b0d4ff;
-    cursor: not-allowed;
-}
-
-.save-button:hover:enabled {
-    background-color: #0056b3;
-}
-
-.cancel-button {
-    padding: 10px 20px;
-    background-color: #dc3545;
-    color: #fff;
-    text-decoration: none;
-    border-radius: 4px;
-    transition: background-color 0.3s;
-}
-
-.cancel-button:hover {
-    background-color: #c82333;
+.remove-icon {
+    display: flex;
+    justify-content: center;
 }

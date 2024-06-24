@@ -29,12 +29,9 @@
             </div>
         </div>
         <div class="text-center mt-4">
-            <button class="btn" [ngClass]="{ 'btn-primary': isFavorite(cat.name), 'btn-outline-primary': !isFavorite(cat.name) }"
-                    (click)="toggleFavorite(cat.name)">
-                <span *ngIf="isFavorite(cat.name)">Remove from Favorites</span>
-                <span *ngIf="!isFavorite(cat.name)">Add to Favorites</span>
-            </button>
-            <span class="ml-2">{{ favoriteCount }}</span>
+            <i (click)="toggleFavorite(cat.name)" [ngClass]="{'star-icon': true, 'star-filled': isFavorite(cat.name), 'star-empty': !isFavorite(cat.name)}" class="material-icons">
+                star
+            </i>
         </div>
         <div class="text-center mt-4">
             <a [routerLink]="['/cats/edit', cat.name]" class="btn btn-primary">Edit</a>

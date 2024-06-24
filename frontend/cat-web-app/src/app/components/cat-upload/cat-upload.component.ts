@@ -80,7 +80,7 @@ export class CatUploadComponent {
       photo: this.photoUrl,
       vaccinations: this.catForm.value.vaccinations.map((vaccination: Vaccination) => ({
         type: vaccination.type,
-        date: vaccination.date
+        date: new Date(vaccination.date).toISOString().split('T')[0],
       })),
     };
     console.log(cat);

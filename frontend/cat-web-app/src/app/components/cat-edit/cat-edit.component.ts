@@ -1,7 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MatMomentDateModule } from '@angular/material-moment-adapter';
 import { MatButtonModule } from '@angular/material/button';
+import { MAT_DATE_LOCALE, provideNativeDateAdapter } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -21,6 +24,13 @@ import { CatService } from '../../services/cat-api.service';
     MatButtonModule,
     MatIconModule,
     RouterModule,
+    MatDatepickerModule,
+    MatMomentDateModule
+  ],
+  providers: [
+    provideNativeDateAdapter(),
+    { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },
+    { provide: MAT_DATE_LOCALE, useValue: 'es-ES' }
   ],
   templateUrl: './cat-edit.component.html',
   styleUrls: ['./cat-edit.component.css'],
@@ -87,18 +97,19 @@ export class CatEditComponent implements OnInit {
   }
 
   saveCat(): void {
-    if (this.file) {
-      const reader = new FileReader();
-      const updatedCat: Cat = {
-        ...this.catForm.value,
-        photo: this.photoUrl,
-        vaccinations: this.catForm.value.vaccinations,
-      };
-      this.catService.updateCat(this.originalName!, updatedCat).subscribe(() => this.router.navigate(['/cats']));
-    } else {
-      const updatedCat: Cat = this.catForm.value;
-      this.catService.updateCat(this.originalName!, updatedCat).subscribe(() => this.router.navigate(['/cats']));
-    }
+    let updatedCat: Cat;
+
+    updatedCat = {
+      ...this.catForm.value,
+      photo: this.photoUrl ? this.photoUrl : this.catForm.get('photo')?.value,
+      vaccinations: this.catForm.value.vaccinations.map((vaccination: Vaccination) => ({
+        type: vaccination.type,
+        date: new Date(vaccination.date),
+      })),
+    };
+    console.log(updatedCat.vaccinations);
+
+    this.catService.updateCat(this.originalName!, updatedCat).subscribe(() => this.router.navigate(['/cats']));
   }
 
   public removeFile(): void {

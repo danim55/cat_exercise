@@ -38,8 +38,6 @@ async def get_cat(name: str, db: Database = Depends(get_db)):
 async def update_cat(name: str, cat: CatSchema, db: Database = Depends(get_db)):
     cat_model = Cat(db)
     updated_cat = cat_model.update_cat(name, cat.dict())
-    if updated_cat.modified_count == 0:
-        raise HTTPException(status_code=404, detail="Cat not found")
     return {"message": "Cat updated successfully"}
 
 

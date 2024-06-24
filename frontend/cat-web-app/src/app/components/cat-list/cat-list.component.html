@@ -10,6 +10,11 @@
                     <img [src]="cat.photo" alt="cat photo" class="rounded-circle me-3"
                         style="width: 50px; height: 50px; object-fit: cover;">
                     <a [routerLink]="['/cats', cat.name]" class="text-decoration-none">{{ cat.name }}</a>
+                    @if(isFavorite(cat.name)){
+                        <span>
+                            <i class="material-icons" style="color:yellow; margin-left: 4px;">star</i>
+                        </span>
+                    }
                 </div>
                 <button (click)="deleteCat(cat.name)" class="btn btn-danger">Delete</button>
             </li>

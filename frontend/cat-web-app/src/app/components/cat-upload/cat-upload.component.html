@@ -59,10 +59,14 @@
                         <mat-label>Type</mat-label>
                         <input matInput formControlName="type" required>
                     </mat-form-field>
+
                     <mat-form-field appearance="fill" class="form-group">
                         <mat-label>Date</mat-label>
-                        <input matInput type="date" formControlName="date" required>
+                        <input matInput [matDatepicker]="picker" formControlName="date">
+                        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
                     </mat-form-field>
+
                     <button mat-icon-button type="button" class="remove-button" (click)="removeVaccination(i)">
                         <mat-icon class="remove-icon">remove_circle</mat-icon>
                     </button>

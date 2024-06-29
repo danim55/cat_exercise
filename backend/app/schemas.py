@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import datetime
 from typing import List
 
 from pydantic import BaseModel
@@ -6,7 +6,7 @@ from pydantic import BaseModel
 
 class Vaccination(BaseModel):
     type: str
-    date: date
+    date: datetime
 
 
 class CatSchema(BaseModel):

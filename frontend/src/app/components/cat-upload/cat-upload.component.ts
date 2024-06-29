@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MatMomentDateModule } from '@angular/material-moment-adapter';
 import { MatButtonModule } from '@angular/material/button';
@@ -8,44 +8,33 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { Cat } from '../../model/cat.model';
+import { Router, RouterModule } from '@angular/router';
 import { Vaccination } from '../../model/vaccination.model';
 import { CatService } from '../../services/cat-api.service';
 
 @Component({
-  selector: 'app-cat-edit',
+  selector: 'app-cat-upload',
   standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatIconModule,
-    RouterModule,
-    MatDatepickerModule,
-    MatMomentDateModule
-  ],
+  imports: [CommonModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, RouterModule, MatDatepickerModule, MatMomentDateModule],
   providers: [
     provideNativeDateAdapter(),
-    { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },
-    { provide: MAT_DATE_LOCALE, useValue: 'es-ES' }
+    { provide: MAT_DATE_LOCALE, useValue: 'es-ES' },
+    { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true }, }
   ],
-  templateUrl: './cat-edit.component.html',
-  styleUrls: ['./cat-edit.component.css'],
+  templateUrl: './cat-upload.component.html',
+  styleUrls: ['./cat-upload.component.css']
 })
-export class CatEditComponent implements OnInit {
+export class CatUploadComponent {
   @ViewChild('fileUpload') fileUpload!: ElementRef<HTMLInputElement>;
+
+  private UTC_OFFSET: number = 18000000;
 
   public catForm: FormGroup;
   public file: File | null = null;
-  private originalName: string | undefined;
-  public photoUrl: string | undefined
+  public photoUrl: string | undefined;
 
   constructor(
     private fb: FormBuilder,
-    private route: ActivatedRoute,
     private catService: CatService,
     private router: Router
   ) {
@@ -54,16 +43,7 @@ export class CatEditComponent implements OnInit {
       photo: ['', Validators.required],
       age: [, [Validators.required, Validators.min(1)]],
       breed: ['', Validators.required],
-      vaccinations: this.fb.array([]),
-    });
-  }
-
-  ngOnInit(): void {
-    const name = this.route.snapshot.paramMap.get('name')!;
-    this.catService.getCat(name).subscribe((cat) => {
-      this.originalName = cat.name;
-      this.catForm.patchValue(cat);
-      cat.vaccinations.forEach((vaccination) => this.addVaccination(vaccination));
+      vaccinations: this.fb.array([])
     });
   }
 
@@ -84,10 +64,10 @@ export class CatEditComponent implements OnInit {
     }
   }
 
-  addVaccination(vaccination?: Vaccination): void {
+  addVaccination(): void {
     const vaccinationGroup = this.fb.group({
-      type: [vaccination ? vaccination.type : '', Validators.required],
-      date: [vaccination ? vaccination.date : '', Validators.required],
+      type: ['', Validators.required],
+      date: ['', Validators.required]
     });
     this.vaccinations.push(vaccinationGroup);
   }
@@ -96,24 +76,21 @@ export class CatEditComponent implements OnInit {
     this.vaccinations?.removeAt(index);
   }
 
-  saveCat(): void {
-    let updatedCat: Cat;
-
-    updatedCat = {
+  uploadCat(): void {
+    const cat = {
       ...this.catForm.value,
-      photo: this.photoUrl ? this.photoUrl : this.catForm.get('photo')?.value,
+      photo: this.photoUrl,
       vaccinations: this.catForm.value.vaccinations.map((vaccination: Vaccination) => ({
         type: vaccination.type,
-        date: new Date(vaccination.date),
+        date: vaccination.date.getTime() + this.UTC_OFFSET,
       })),
     };
-    console.log(updatedCat.vaccinations);
-
-    this.catService.updateCat(this.originalName!, updatedCat).subscribe(() => this.router.navigate(['/cats']));
+    this.catService.createCat(cat).subscribe(() => this.router.navigate(['/cats']));
   }
 
   public removeFile(): void {
     this.file = null;
+    // Reset file input value
     this.resetFileInput();
   }
 

@@ -13,6 +13,12 @@
 
         <div appearance="fill" class="form-group">
             <input type="file" class="file-input" (change)="handleFileInput($event)" required #fileUpload>
+            @if(photoUrl) {
+                <div class="d-flex align-items-center">
+                    <img [src]="photoUrl ? photoUrl : catForm.get('photo')?.value" alt="cat photo"
+                        class="rounded-circle me-3" style="width: 50px; height: 50px; object-fit: cover;">
+                </div>
+            }
             <button (click)="fileUpload.click()" type="button" class="file-button">Choose File</button>
             <div class="card">
                 @if (file) {

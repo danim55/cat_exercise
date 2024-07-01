@@ -1,38 +1,35 @@
-# See http://help.github.com/ignore-files/ for more about ignoring files.
+# cat_exercise
+Super mega cat app
 
-# Compiled output
-/dist
-/tmp
-/out-tsc
-/bazel-out
+This is a simple web app with basic functionalities such as:
+ - List elements.
+ - Edit elements.
+ - Delete elements.
+ - Update elements.
+ - Creat elements.
 
-# Node
-/node_modules
-npm-debug.log
-yarn-error.log
+ The technologies used for this web app are:
+1. Angular for the FrontEnd [Angular link](https://angular.dev/)
+1. Python for the BackEnd, more precisely FastApi due to it's simplicity [FastApi link](https://fastapi.tiangolo.com/)
+1. MongoDB for the database. [MongoDb link](https://www.mongodb.com/)
 
-# IDEs and editors
-.idea/
-.project
-.classpath
-.c9/
-*.launch
-.settings/
-*.sublime-workspace
+For local development you would need to clone the repo:
+```bash
+git clone https://github.com/danim55/cat_exercise.git
+```
 
-# Visual Studio Code
-.vscode/*
-.history/*
+Navigate to the FrontEnd folder 
 
-# Miscellaneous
-/.angular/cache
-.sass-cache/
-/connect.lock
-/coverage
-/libpeerconnection.log
-testem.log
-/typings
+```bash
+cd frontend/cat-web-app/
+```
 
-# System files
-.DS_Store
-Thumbs.db
+Install an run the app
+
+```bash
+npm install && ng serve
+```
+
+The FrontEnd will be running on the port 4200.
+
+Then the BackEnd must be started to. For example with PyCharm.

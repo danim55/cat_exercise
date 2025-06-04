@@ -1,5 +1,5 @@
-# Cat Managing API
-Super mega cat app
+# Cat Manager Application
+Super mega cat app for managing all your cats (could be any other thing)
 
 This is a simple web app with basic functionalities such as:
  - List elements.

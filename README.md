@@ -1,4 +1,4 @@
-# cat_exercise
+# Cat Managing API
 Super mega cat app
 
 This is a simple web app with basic functionalities such as:
@@ -32,4 +32,4 @@ npm install && ng serve
 
 The FrontEnd will be running on the port 4200.
 
-Then the BackEnd must be started to. For example with PyCharm.
+Then the BackEnd must be started too. For example with PyCharm.
